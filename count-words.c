@@ -5,14 +5,25 @@
 #include <malloc.h>
 
 /* return string "word" if the count is 1 or "words" otherwise */
-char *words(int count)
-{
-  char *words = "words";
-  if (count == 1)
-    	words[strlen(words)-1] = '\0';
+// char *words(int count)
+// {
+//   char *words = "words";
+//   if (count == 1)
+//     	words[strlen(words)-1] = '\0'; // because we try change a string literal, this is undefined behavior
   
-  return words;
+//   return words;
+// }
+
+/* return string "word" if the count is 1 or "words" otherwise */
+// my fix to the segmentation fault
+char *words(int count) {
+    if (count == 1) {
+        return "word";
+    } else {
+        return "words";
+    }
 }
+
 
 /* print a message reportint the number of words */
 int print_word_count(char **argv)
@@ -30,6 +41,10 @@ int print_word_count(char **argv)
 /* print the number of words in the command line and return the number as the exit code */
 int main(int argc, char **argv)
 {
-  print_word_count(argv + 1);
-  return 0;
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <word>...\n", argv[0]);
+        return 1;
+    }
+    print_word_count(argv + 1);
+    return 0;
 }
