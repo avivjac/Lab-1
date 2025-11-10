@@ -156,7 +156,8 @@ int main(int argc, char **argv){
         carray = mapped;
 
         puts(""); 
-
+    }
+    
     free(carray);
     return 0;
 }
