@@ -2,13 +2,14 @@
 #include <string.h>
 #include <stdlib.h>
 
-int addr5;
+int addr5; 
 int addr6;
 
 int foo()
 {
     return -1;
 }
+
 void point_at(void *p);
 void foo1();
 char g = 'g';
@@ -29,10 +30,10 @@ int secondary(int x)
     int* iarray2Ptr;
     char* carray2Ptr; 
     
-	printf("- &addr2: %p\n", &addr2);
-    printf("- &addr3: %p\n", &addr3);
-    printf("- foo: %p\n", &foo);
-    printf("- &addr5: %p\n", &addr5);
+	printf("- &addr2: %p\n", &addr2); //stack
+    printf("- &addr3: %p\n", &addr3); //stack
+    printf("- foo: %p\n", &foo); //code
+    printf("- &addr5: %p\n", &addr5); //data segment
 	printf("Print distances:\n");
     point_at(&addr5);
 
@@ -49,7 +50,6 @@ int secondary(int x)
     printf("Print another distance:\n");
     printf("- &foo2 - &foo1: %ld\n", (long) (&foo2 - &foo1));
 
-   
     printf("Arrays Mem Layout (T1b):\n");
 
     /* task 1 b here */
@@ -81,7 +81,7 @@ int secondary(int x)
     printf("  carray + 1  = %p  (adds sizeof(char)==1)\n", (void*)(carray + 1));
 
     puts("  Observation: pointer + 1 advances by the ELEMENT size (sizeof(T)),");
-    puts("               not by 1 byte (except for char). That’s the array layout.");
+    puts("               not by 1 byte (except for char). That's the array layout.");
     
     printf("Pointers and arrays (T1d): ");
 
@@ -130,16 +130,16 @@ int main(int argc, char **argv)
 
     printf("Print function argument addresses:\n");
 
-    printf("- &argc %p\n", &argc);
-    printf("- argv %p\n", argv);
-    printf("- &argv %p\n", &argv);
+    printf("- &argc %p\n", &argc); //stack
+    printf("- argv %p\n", argv); //stack
+    printf("- &argv %p\n", &argv); //stack
 	
 	secondary(0);
     
     printf("Command line arg addresses (T1e):\n");
     /* task 1 e here */
 
-     printf("argv (char**):        %p  (pointer to the argv array)\n", (void*)argv);
+    printf("argv (char**):        %p  (pointer to the argv array)\n", (void*)argv);
     printf("&argv (char***):      %p  (address of argv itself - on stack)\n", (void*)&argv);
     printf("&argc (int*):         %p  (address of argc - on stack)\n", (void*)&argc);
 
